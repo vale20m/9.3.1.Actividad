@@ -1,29 +1,51 @@
-let dato = document.getElementById('item');
-const botonAgregar = document.getElementById('agregar');
-const botonLimpiar = document.getElementById('limpiar');
-const lista = document.getElementById('contenedor');
-let objetoLista = "";
+    // Accedemos a las etiquetas de HTML mediante variables.
+    
+    let dato = document.getElementById('item');
+    const botonAgregar = document.getElementById('agregar');
+    const botonLimpiar = document.getElementById('limpiar');
+    const listaHTML = document.getElementById('contenedor');
+
+    // Establecemos la lista que guardaremos en el localStorage.
+
+    let lista = [];
+
+    // Variable para guardar el formato de "item" de la listaHTML.
+
+    let objetoLista = "";
 
 document.addEventListener("DOMContentLoaded", function(){
-    for (let i=1; i <= contador; i++){
-        objetoLista = localStorage.getItem("Item " + contador-1);
-        lista.innerHTML += objetoLista;
+    
+    // Si la lista esta definida, la cargamos.
+
+    if (localStorage.getItem("lista") != undefined){
+        lista = JSON.parse(localStorage.getItem("lista"));
     }
-    let contador = 1;
+
+    // Colocamos en el HTML los elementos guardados de la lista.
+
+    for (let i=0; i < lista.length; i++){
+        listaHTML.innerHTML += lista[i];
+    }
 });
 
 botonAgregar.addEventListener("click", function(){
     if (dato.value != ""){
-        localStorage.setItem("Item " + contador, dato.value);
-        objetoLista = `<li>${localStorage.getItem("Item " + contador)}</li>`;
-        lista.innerHTML += objetoLista;
+
+        // Al presionar el boton "agregar" y tener contenido en la casilla de texto, se agrega dicho contenido a la listaHTML y se pushea
+        // al arreglo en el localStorage, ademas de eliminarse el contenido de la casilla.
+
+        objetoLista = `<li>${dato.value}</li>`;
+        listaHTML.innerHTML += objetoLista;
+        lista.push(objetoLista);
+        localStorage.setItem("lista", JSON.stringify(lista));
         dato.value = "";
-        contador++;
     }
 });
 
 botonLimpiar.addEventListener("click", function(){
+
+    // Se eliminan todas las variables establecidas en el localStorage y se vacia la listaHTML.
+
     localStorage.clear();
-    lista.innerHTML = "";
-    contador = 1;
+    listaHTML.innerHTML = "";
 });
