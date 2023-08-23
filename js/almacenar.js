@@ -2,9 +2,15 @@ let dato = document.getElementById('item');
 const botonAgregar = document.getElementById('agregar');
 const botonLimpiar = document.getElementById('limpiar');
 const lista = document.getElementById('contenedor');
-let contador = 1;
 let objetoLista = "";
 
+document.addEventListener("DOMContentLoaded", function(){
+    for (let i=1; i <= contador; i++){
+        objetoLista = localStorage.getItem("Item " + contador-1);
+        lista.innerHTML += objetoLista;
+    }
+    let contador = 1;
+});
 
 botonAgregar.addEventListener("click", function(){
     if (dato.value != ""){
