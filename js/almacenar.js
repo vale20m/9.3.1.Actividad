@@ -46,6 +46,7 @@ botonLimpiar.addEventListener("click", function(){
 
     // Se eliminan todas las variables establecidas en el localStorage y se vacia la listaHTML.
 
-    localStorage.clear();
+    localStorage.removeItem("lista");
+    lista = [];
     listaHTML.innerHTML = "";
 });
